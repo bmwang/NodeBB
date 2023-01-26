@@ -31,6 +31,8 @@ function saveConditions(data) {
         // The next line calls a function in a module that has not been updated to TS yet
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         yield database_1.default.setAdd('conditions:active', conditions);
+        // The next line calls a function in a module that has not been updated to TS yet
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         yield Promise.all(Object.keys(rewardsPerCondition).map(c => database_1.default.setAdd(`condition:${c}:rewards`, rewardsPerCondition[c])));
     });
 }

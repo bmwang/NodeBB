@@ -9,12 +9,12 @@ interface Data {
     disabled: string
 }
 
-interface RewardsPerCondition {
+interface Reward {
     [key: string]: string[]
 }
 
 async function saveConditions(data: Data[]): Promise<void> {
-    const rewardsPerCondition: RewardsPerCondition = {};
+    const rewardsPerCondition: Reward = {};
 
     // The next line calls a function in a module that has not been updated to TS yet
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -31,7 +31,9 @@ async function saveConditions(data: Data[]): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await db.setAdd('conditions:active', conditions);
 
-    await Promise.all(Object.keys(rewardsPerCondition).map(c => db.setAdd(`condition:${c}:rewards`, rewardsPerCondition[c])));
+    // The next line calls a function in a module that has not been updated to TS yet
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+    await Promise.all(Object.keys(rewardsPerCondition).map(c => db.setAdd(`condition:${c}:rewards`, rewardsPerCondition[c]) as void));
 }
 
 async function _delete(data: Data): Promise<void> {
